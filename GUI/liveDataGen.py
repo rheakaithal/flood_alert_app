@@ -15,16 +15,16 @@ pole2_step = random.uniform(0.1, 0.3)
 json_entries = []
 entry_id = 1
 p1 = 0
-p2 = 5
+p2 = 2
 
 while True:
     t = datetime.now()
 
     # Base trend
 
-    if((p1 >= 55 and pole1_step > 0) or (p1 <= 1 and pole1_step < 0)):
+    if((p1 >= 9.9 and pole1_step > 0) or (p1 <= 0.1 and pole1_step < 0)):
         pole1_step *= -1
-    if((p2 >= 55 and pole2_step > 0) or (p2 <= 1 and pole2_step < 0)):
+    if((p2 >= 9.9 and pole2_step > 0) or (p2 <= 0.1 and pole2_step < 0)):
         pole2_step *= -1
     
     p1 += pole1_step
@@ -42,7 +42,7 @@ while True:
     json_entries.append({
         "id": entry_id,
         "PoleID": 1,
-        "waterlevel": round(p1, 2),
+        "waterlevel": round(p1, 1),
         "created_at": t.strftime('%Y-%m-%d %H:%M:%S')
     })
     entry_id += 1
@@ -51,12 +51,12 @@ while True:
     json_entries.append({
         "id": entry_id,
         "PoleID": 2,
-        "waterlevel": round(p2, 2),
+        "waterlevel": round(p2, 1),
         "created_at": t.strftime('%Y-%m-%d %H:%M:%S')
     })
     entry_id += 1
     json_output = json.dumps(json_entries, indent=2)
-    path = 'data.json'
+    path = 'GUI/data.json'
     with open(path, 'w') as f:
         f.write(json_output)
     time.sleep(1)  # Simulate delay between data generations
